@@ -1,0 +1,26 @@
+[
+    {
+        "id": 123456,
+        "nombre": "Maximo Cosetti",
+        "dni": 12345678,
+        "email": "maximocosetti@gmail.com",
+        "cumple": "08/07/1991",
+        "clase": "Pilates",
+        "frecuencia": "1",
+        "cantidad_clases": 4,
+        "cantidad_restantes": 2,
+        "vencimiento_actual": "2025-09-30T00:00:00.000Z"
+    },
+    {
+        "id": 123457,
+        "nombre": "Lampone Pablo",
+        "dni": 36290784,
+        "email": "maximocosetti@gmail.com",
+        "cumple": "08/07/1991",
+        "clase": "Pilates",
+        "frecuencia": "1",
+        "cantidad_clases": 4,
+        "cantidad_restantes": 2,
+        "vencimiento_actual": "2025-09-23T00:00:00.000Z"
+    }
+]

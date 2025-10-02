@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "socio_id": "123456",
+        "fecha_de_asistencia": "2025-09-30T20:30:00.000Z",
+        "status": "presente"
+    },
+    {
+        "id": 2,
+        "socio_id": "123456",
+        "fecha_de_asistencia": "2025-09-27T21:30:00.000Z",
+        "status": "presente"
+    },
+    {
+        "id": 4,
+        "socio_id": "123457",
+        "fecha_de_asistencia": "2025-09-18T22:30:00.000Z",
+        "status": "presente"
+    }
+]

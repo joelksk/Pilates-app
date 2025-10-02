@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "socio_id": "123456",
+        "forma_de_pago": "efectivo",
+        "fecha_de_pago": "2025-09-24T13:30:00.000Z",
+        "monto_de_pago": 5000
+    },
+    {
+        "id": 2,
+        "socio_id": "123456",
+        "forma_de_pago": "transferencia",
+        "fecha_de_pago": "2025-08-24T14:30:00.000Z",
+        "monto_de_pago": 5000
+    },
+    {
+        "id": 3,
+        "socio_id": "123456",
+        "forma_de_pago": "transferencia",
+        "fecha_de_pago": "2025-07-24T15:30:00.000Z",
+        "monto_de_pago": 5000
+    }
+]
