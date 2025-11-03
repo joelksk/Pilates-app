@@ -1,10 +1,9 @@
 import Pago from "../models/Pago.js";
 import Socio from "../models/Socio.js";
 
-// Registrar un nuevo pago
 export const registrarPago = async (req, res) => {
   try {
-    const { socioId, forma_de_pago, monto_de_pago, cantidad_clases } = req.body;
+    const { socioId, forma_de_pago, monto_de_pago, cantidad_clases, fecha_de_pago } = req.body;
     const socio = await Socio.findById(socioId);
     if (!socio) return res.status(404).json({ mensaje: "Socio no encontrado" });
 
@@ -12,7 +11,8 @@ export const registrarPago = async (req, res) => {
     const pago = new Pago({ 
       socio: socio._id, 
       forma_de_pago, 
-      monto_de_pago, 
+      monto_de_pago,
+      fecha_de_pago, 
       cantidad_clases 
     });
     await pago.save();
@@ -22,12 +22,12 @@ export const registrarPago = async (req, res) => {
     socio.cantidad_restantes += cantidad_clases;
 
     // Actualizar vencimiento
-    const fechaActual = new Date();
+    const fechaActual = pago.fecha_de_pago || new Date();
     const base = socio.vencimiento_actual && socio.vencimiento_actual > fechaActual
       ? socio.vencimiento_actual
       : fechaActual;
     const nuevaFecha = new Date(base);
-    nuevaFecha.setMonth(nuevaFecha.getMonth() + 1); // suma 1 mes
+    nuevaFecha.setMonth(nuevaFecha.getMonth() + 1);
     socio.vencimiento_actual = nuevaFecha;
 
     await socio.save();
@@ -39,7 +39,6 @@ export const registrarPago = async (req, res) => {
   }
 };
 
-// Listar pagos (todos o filtrados por socio)
 export const listarPagos = async (req, res) => {
   try {
     const socioId  = req.params.id;
@@ -51,3 +50,12 @@ export const listarPagos = async (req, res) => {
     res.status(500).json({ mensaje: "Error al listar pagos" });
   }
 };
+
+export const eliminarListaPagos = async (socioId) => {
+  try {
+     await Pago.deleteMany({ socio: socioId });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al eliminar los pagos del socio" });
+  }
+}

@@ -1,6 +1,8 @@
 import Socio from "../models/Socio.js";
 import Pago from "../models/Pago.js";
 import Asistencia from "../models/Asistencia.js";
+import { eliminarListaPagos } from "./PagoController.js";
+import { eliminarListaAsistencias } from "./AsistenciaController.js";
 
 export const crearSocio = async (req, res) => {
   try {
@@ -72,6 +74,8 @@ export const eliminarSocio = async (req, res) => {
     const { id } = req.params;
     const socio = await Socio.findByIdAndDelete(id);
     if (!socio) return res.status(404).json({ mensaje: "Socio no encontrado" });
+    await eliminarListaPagos(socio._id);
+    await eliminarListaAsistencias(socio._id);
     res.json({ mensaje: "Socio eliminado correctamente" });
   } catch (error) {
     console.error(error);

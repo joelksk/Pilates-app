@@ -53,3 +53,12 @@ export const listarAsistencias = async (req, res) => {
     res.status(500).json({ mensaje: "Error al listar asistencias" });
   }
 };
+
+export const eliminarListaAsistencias = async (socioId) => {
+  try {
+    await Asistencia.deleteMany({ socio: socioId });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al eliminar las asistencias del socio" });
+  }
+}
