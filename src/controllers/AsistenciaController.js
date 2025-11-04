@@ -3,12 +3,12 @@ import Socio from "../models/Socio.js";
 
 export const registrarAsistencia = async (req, res) => {
   try {
-    const { socioId } = req.body;
+    const { socioId, fecha_vieja } = req.body;
 
     const socio = await Socio.findById(socioId);
     if (!socio) return res.status(404).json({ mensaje: "Socio no encontrado" });
 
-      const hoy = new Date();
+      const hoy = fecha_vieja === undefined ? new Date() : new Date(fecha_vieja);
 
       if(socio.frecuencia !== 'pase_libre') {
         if (socio.cantidad_restantes <= 0) {
@@ -53,6 +53,23 @@ export const listarAsistencias = async (req, res) => {
     res.status(500).json({ mensaje: "Error al listar asistencias" });
   }
 };
+
+export const eliminarAsistenciaPorId = async (req, res) => {
+   try {
+      const {id} = req.params;
+      const asistencia = await Asistencia.findByIdAndDelete(id);
+      if (!asistencia) return res.status(404).json({ mensaje: "Asistencia no encontrada" });
+  
+      //Agregamos una clase al socio, ya que eliminamos la asistencia
+      const socio = await Socio.findById(asistencia.socio.toString());
+      socio.cantidad_restantes++;
+      await socio.save();
+      res.json({ mensaje: "Asistencia eliminada correctamente" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ mensaje: "Error al eliminar el pago" });
+    }
+}
 
 export const eliminarListaAsistencias = async (socioId) => {
   try {
