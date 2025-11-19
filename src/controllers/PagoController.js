@@ -19,8 +19,9 @@ export const registrarPago = async (req, res) => {
     await pago.save();
 
     // Actualizar clases del socio
-    socio.cantidad_clases += cantidad_clases;
+    socio.cantidad_clases = cantidad_clases;
     socio.cantidad_restantes += cantidad_clases;
+    socio.cantidad_asistidas = 0;
 
     // Actualizar vencimiento
     // const base = socio.vencimiento_actual && socio.vencimiento_actual > pago.fecha_de_pago
@@ -59,7 +60,6 @@ export const eliminarPagoPorId = async (req, res) => {
 
     //Restamos las clases correspondientes al pago del socio
     const socio = await Socio.findById(pago.socio.toString());
-    socio.cantidad_clases -= pago.cantidad_clases;
     socio.cantidad_restantes -= pago.cantidad_clases;
     await socio.save();
     res.json({ mensaje: "Pago eliminado correctamente" });

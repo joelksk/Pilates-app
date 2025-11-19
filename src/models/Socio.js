@@ -9,6 +9,7 @@ const socioSchema = new mongoose.Schema({
   frecuencia: { type: String, enum: ["1", "2", "3", "pase_libre"], required: true },
   cantidad_clases: { type: Number, default: 0 },
   cantidad_restantes: { type: Number, default: 0 },
+  cantidad_asistidas: { type: Number, default: -1 },
   vencimiento_actual: { type: Date , default: new Date("1990-01-01")},
   observaciones: { type: String}
 }, { timestamps: true });

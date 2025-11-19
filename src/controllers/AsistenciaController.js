@@ -21,6 +21,10 @@ export const registrarAsistencia = async (req, res) => {
           return res.status(400).json({ mensaje: "Lo sentimos su cuota ha vencido el dia " + vencimiento + ", hable con administracion." });
         }
         socio.cantidad_restantes -= 1;
+        console.log("cantidad_asistida es igual a: " + socio.cantidad_asistidas)
+        if(socio.cantidad_asistidas !== -1){
+          socio.cantidad_asistidas += 1;
+        }
         await socio.save();
       }
 
@@ -66,6 +70,9 @@ export const eliminarAsistenciaPorId = async (req, res) => {
       //Agregamos una clase al socio, ya que eliminamos la asistencia
       const socio = await Socio.findById(asistencia.socio.toString());
       socio.cantidad_restantes++;
+      if(socio.cantidad_asistidas !== -1) {
+        socio.cantidad_asistidas = (socio.cantidad_asistidas - 1) < 0 ? 0 : socio.cantidad_asistidas--;
+      }
       await socio.save();
       res.json({ mensaje: "Asistencia eliminada correctamente" });
     } catch (error) {
