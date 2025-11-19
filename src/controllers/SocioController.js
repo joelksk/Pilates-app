@@ -79,7 +79,7 @@ export const eliminarSocio = async (req, res) => {
     res.json({ mensaje: "Socio eliminado correctamente" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Error al eliminar socio" });
+    res.status(500).json({ message: "Error al eliminar socio" });
   }
 };
 
@@ -90,7 +90,7 @@ export const historialPagos = async (req, res) => {
     res.json(pagos);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Error al obtener historial de pagos" });
+    res.status(500).json({ message: "Error al obtener historial de pagos" });
   }
 };
 
@@ -101,6 +101,6 @@ export const historialAsistencias = async (req, res) => {
     res.json(asistencias);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Error al obtener historial de asistencias" });
+    res.status(500).json({ message: "Error al obtener historial de asistencias" });
   }
 };
