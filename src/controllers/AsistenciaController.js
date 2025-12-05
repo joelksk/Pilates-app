@@ -19,7 +19,7 @@ export const registrarAsistencia = async (req, res) => {
         return res.status(400).json({ mensaje: "Lo sentimos ya no le quedan clases disponibles, hable con administracion." });
         }
         if (socio.vencimiento_actual < hoy) {
-          return res.status(400).json({ mensaje: "Lo sentimos su cuota ha vencido el dia " + vencimiento[1] + "/" + vencimiento[0] + "/" + vencimiento[2] + ", hable con administracion." });
+          return res.status(400).json({ mensaje: "Lo sentimos su cuota ha vencido el dia " + vencimiento[0] + "/" + vencimiento[1] + "/" + vencimiento[2] + ", hable con administracion." });
         }
         socio.cantidad_restantes -= 1;
         if(socio.cantidad_asistidas !== -1){
