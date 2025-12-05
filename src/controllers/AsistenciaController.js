@@ -11,17 +11,17 @@ export const registrarAsistencia = async (req, res) => {
 
       const hoy = fecha_vieja === undefined ? new Date() : new Date(fecha_vieja);
 
-      const vencimiento = socio.vencimiento_actual.toLocaleString().split(",")[0]
+      const vencimientoActual = socio.vencimiento_actual.toLocaleDateString("es-AR", {timeZone: "UTC"})
+      const vencimiento = vencimientoActual.split("/")
 
       if(socio.frecuencia !== 'pase_libre') {
         if (socio.cantidad_restantes <= 0) {
         return res.status(400).json({ mensaje: "Lo sentimos ya no le quedan clases disponibles, hable con administracion." });
         }
         if (socio.vencimiento_actual < hoy) {
-          return res.status(400).json({ mensaje: "Lo sentimos su cuota ha vencido el dia " + vencimiento + ", hable con administracion." });
+          return res.status(400).json({ mensaje: "Lo sentimos su cuota ha vencido el dia " + vencimiento[1] + "/" + vencimiento[0] + "/" + vencimiento[2] + ", hable con administracion." });
         }
         socio.cantidad_restantes -= 1;
-        console.log("cantidad_asistida es igual a: " + socio.cantidad_asistidas)
         if(socio.cantidad_asistidas !== -1){
           socio.cantidad_asistidas += 1;
         }
